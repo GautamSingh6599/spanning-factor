@@ -88,9 +88,10 @@ void create_graph(std::vector<Point> &polygon,
   }
 }
 
-double spanning_ratio(std::vector<Point> polygon,
+std::vector<double> spanning_ratio(std::vector<Point> polygon,
                       std::vector<std::vector<std::pair<int, double>>> &adj,
                       int n) {
+  std::vector<double> res(3, 0);
   double span_ratio = 0;
   std::vector<std::vector<double>> shortestDistance(
       n, std::vector<double>(n, std::numeric_limits<double>::max()));
@@ -114,17 +115,26 @@ double spanning_ratio(std::vector<Point> polygon,
     }
   }
 
+  int maxi = 0;
+  int maxj = 0;
   for (int i = 0; i < n; i++) {
     for (int j = 0; j < n; j++) {
       if (i != j) {
-        span_ratio = std::max(span_ratio,
-                              shortestDistance[i][j] /
-                                  euclidean_distance(polygon[i], polygon[j]));
+        double k = shortestDistance[i][j] / euclidean_distance(polygon[i], polygon[j]);
+        if(k > span_ratio){
+          span_ratio = k;
+          maxi = i;
+          maxj = j;
+        }
       }
     }
   }
 
-  return span_ratio;
+  res[0] = span_ratio;
+  res[1] = maxi;
+  res[2] = maxj;
+
+  return res;
 }
 
 std::vector<Point> input() {
@@ -151,6 +161,19 @@ void output(std::vector<std::vector<int>> &triangles,
   }
 }
 
+void print_max_span(std::vector<Point> polygon,
+                      std::vector<std::vector<std::pair<int, double>>> &adj,
+                      int n, double i, double j){
+  int src = (int) i;
+  int end = (int) j;
+  std::cout << n << " " << src << " " << end << "\n";
+  std::cout << "[ ";
+  for (int i = 0; i < n; ++i) {
+    std::cout << "{ " << polygon[i].x << ", " << polygon[i].y << " }, ";
+  }
+  std::cout << "]";
+}
+
 int main() {
   std::vector<Point> polygon = input();
   int n = polygon.size();
@@ -159,7 +182,8 @@ int main() {
       triangulation_pos(triangulation, 0, n - 1);
   std::vector<std::vector<std::pair<int, double>>> adj(n);
   create_graph(polygon, adj, n, triangles);
-  double span_ratio = spanning_ratio(polygon, adj, n);
-  output(triangles, polygon, span_ratio);
+  std::vector<double> res = spanning_ratio(polygon, adj, n);
+  // output(triangles, polygon, res[0]);
+  print_max_span(polygon, adj, n, res[1], res[2]);
   return 0;
 }

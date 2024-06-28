@@ -12,14 +12,14 @@ import math
 import random
 
 
-def convex_polygon(vert, rad=10):
+def convex_polygon(vert, rad=8):
     """
     Return two lists x, y of point coordinates of a convex polygon.
 
     Parameters
     ----------
     vert : int
-        Number of vertices of the polygon.
+    Number of vertices of the polygon.
     rad : float
         Distance of each point from the origin.
     """
@@ -53,8 +53,13 @@ def output_text(lst_x, lst_y, fn, vert):
             file.write(str(lst_x[i]) + " " + str(lst_y[i]) + "\n")
 
 
-VERTICES = 10
-polygon_x, polygon_y = convex_polygon(VERTICES)
+VERTICES = 6
+RADIUS = 1
+NAME = "../temp/convex_polygon_r_1_n_6.txt"
+ITERATIONS = 1
 
-NAME = "temp/convex_polygon.txt"
-output_text(polygon_x, polygon_y, NAME, VERTICES)
+# with open(NAME, "a", encoding="utf-8") as file:
+#     file.write(str(ITERATIONS) + "\n")
+for _ in range(ITERATIONS):
+    polygon_x, polygon_y = convex_polygon(VERTICES, RADIUS)
+    output_text(polygon_x, polygon_y, NAME, VERTICES)

@@ -42,9 +42,9 @@ def make_plot(x, y, size):
     plt.figure(figsize=(size, size))
     plt.axis("equal")
     plt.fill(x, y, facecolor="none", edgecolor="blue")
-    plt.savefig("temp/convex_polygon.png")
+    plt.savefig("../temp/convex_polygon_r_1_n_10.png")
 
 
-FILE = "temp/convex_polygon.txt"
+FILE = "../temp/convex_normal_polygon_r_1_n_10.txt"
 pol_x, pol_y = access_polygon(FILE)
 make_plot(pol_x, pol_y, 15)

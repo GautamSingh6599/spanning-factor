@@ -42,16 +42,25 @@ def draw_graph(triangles, span, size):
     size : float
         Size of the figure.
     """
+    f, ax = plt.subplots()
     plt.figure(figsize=(size, size))
     plt.axis("equal")
     for triangle in triangles:
         triangle_x = triangle[0]
         triangle_y = triangle[1]
         plt.fill(triangle_x, triangle_y, facecolor="none", edgecolor="blue")
-    plt.text(triangles[0][0][0], triangles[0][1][0], f"Spanning Ratio: {span}")
-    plt.savefig("temp/triangulated_polygon.png")
+    plt.text(
+        0.01,
+        0.99,
+        f"Spanning Ratio: {span}",
+        ha="left",
+        va="top",
+        transform=ax.transAxes,
+    )
+    f.tight_layout()
+    plt.savefig("../temp/triangulated_regular_polygon_r_2_n_650.png")
 
 
-NAME = "temp/triangulated_polygon.txt"
+NAME = "../temp/triangulated_regular_polygon_r_2_n_650.txt"
 spanning_ratio, coordinates = triangulated(NAME)
 draw_graph(coordinates, spanning_ratio, 10)
