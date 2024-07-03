@@ -12,7 +12,7 @@ import math
 import random
 
 
-def convex_polygon(vert, rad=8):
+def convex_polygon(vert, rad=2):
     """
     Return two lists x, y of point coordinates of a convex polygon.
 
@@ -55,11 +55,16 @@ def output_text(lst_x, lst_y, fn, vert):
 
 VERTICES = 6
 RADIUS = 1
-NAME = "../temp/convex_polygon_r_1_n_6.txt"
+TYPE = "convex"
+NAME = f"../temp/Polygon_{TYPE}_R{RADIUS}_N{VERTICES}.txt"
+TNAME = f"../temp/TP"
 ITERATIONS = 1
 
-# with open(NAME, "a", encoding="utf-8") as file:
-#     file.write(str(ITERATIONS) + "\n")
-for _ in range(ITERATIONS):
-    polygon_x, polygon_y = convex_polygon(VERTICES, RADIUS)
-    output_text(polygon_x, polygon_y, NAME, VERTICES)
+with open(f"../temp/TP_{TYPE}_R{RADIUS}_N{VERTICES}.txt", "a") as file:
+    pass
+
+with open(NAME, "a", encoding="utf-8") as file:
+   # file.write(str(ITERATIONS) + "\n")
+   for _ in range(ITERATIONS):
+       polygon_x, polygon_y = convex_polygon(VERTICES, RADIUS)
+       output_text(polygon_x, polygon_y, NAME, VERTICES)

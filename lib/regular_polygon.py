@@ -7,6 +7,7 @@ Functions
 """
 
 import math
+from create_convex import NAME, VERTICES
 
 
 def regular_polygon(vert, rad=1):
@@ -51,9 +52,6 @@ def output_text(lst_x, lst_y, fn, vert):
         for i in range(vert):
             file.write(str(lst_x[i]) + " " + str(lst_y[i]) + "\n")
 
-
-VERTICES = 650
-NAME = "../temp/regular_polygon_r_2_n_650.txt"
 
 polygon_x, polygon_y = regular_polygon(VERTICES, 2)
 output_text(polygon_x, polygon_y, NAME, VERTICES)
