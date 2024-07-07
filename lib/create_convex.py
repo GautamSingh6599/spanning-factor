@@ -10,6 +10,8 @@ output_text
 
 import math
 import random
+import argparse
+from regular_polygon import regular_polygon
 
 
 def convex_polygon(vert, rad=2):
@@ -52,19 +54,25 @@ def output_text(lst_x, lst_y, fn, vert):
         for i in range(vert):
             file.write(str(lst_x[i]) + " " + str(lst_y[i]) + "\n")
 
+parser = argparse.ArgumentParser()
+parser.add_argument('vertices', type=int, help='The number of Vertices in the Polygon')
+parser.add_argument('radius', type=int, help='Radius of the Circle')
+parser.add_argument('type', type=str, help='Type of the Polygon')
 
-VERTICES = 6
-RADIUS = 1
-TYPE = "convex"
-NAME = f"../temp/Polygon_{TYPE}_R{RADIUS}_N{VERTICES}.txt"
-TNAME = f"../temp/TP"
-ITERATIONS = 1
+args = parser.parse_args()
 
-with open(f"../temp/TP_{TYPE}_R{RADIUS}_N{VERTICES}.txt", "a") as file:
+VERTICES = args.vertices
+RADIUS = args.radius
+TYPE = args.type
+NAME = f"temp/Polygon_{TYPE}_R{RADIUS}_N{VERTICES}.txt"
+
+with open(f"temp/TP_{TYPE}_R{RADIUS}_N{VERTICES}.txt", "x") as file:
     pass
 
 with open(NAME, "a", encoding="utf-8") as file:
-   # file.write(str(ITERATIONS) + "\n")
-   for _ in range(ITERATIONS):
+    if TYPE == "regular":
+       polygon_x, polygon_y = regular_polygon(VERTICES, RADIUS)
+       output_text(polygon_x, polygon_y, NAME, VERTICES)
+    if TYPE == "convex":
        polygon_x, polygon_y = convex_polygon(VERTICES, RADIUS)
        output_text(polygon_x, polygon_y, NAME, VERTICES)
