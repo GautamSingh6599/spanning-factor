@@ -1,7 +1,7 @@
 all: convex draw_convex span permission triangulate graph
 
 convex: lib/create_convex.py
-	python3 lib/create_convex.py
+	python3 lib/create_convex.py 8 2 regular
 
 draw_convex: temp/convex_polygon.txt
 	python3 lib/draw_convex.py
